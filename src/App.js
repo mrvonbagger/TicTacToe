@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import WinScreen from "./components/WinScreen"
-import MenuScreen from './components/MenuScreen';
+import WinScreen from './components/WinScreen';
 
 class App extends Component {
   constructor(props) {
@@ -10,11 +9,9 @@ class App extends Component {
       board: Array(9).fill(null),
       player: "X",
       winner: null,
-      showWinScreen: false,
-      showMenuScreen: this.props.showMenuScreen,
-      twoplayerdif: this.props.twoplayerdif,
-      normalDif: true,
-      hardDif: this.props.hardDif,
+      totalMoves: 0,
+      twoplayerdif: true,
+      
     }
   }
 
@@ -45,6 +42,9 @@ class App extends Component {
         })
         this.reset()
       }
+      if(this.state.totalMoves === 9) {
+        this.reset();
+      }
     }
   }
 
@@ -53,6 +53,7 @@ class App extends Component {
       let newBoard = this.state.board
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
+        this.state.totalMoves++;
         this.setState({
           board: newBoard,
           player: this.state.player === "X" ? "O" : "X"
@@ -62,22 +63,12 @@ class App extends Component {
     }
   }
 
-  NormalDifficulty(index) {
-    if (this.state.player && !this.state.winner) {
-      let newBoard = this.state.board
-      if (this.state.board[index] === null) {
-        newBoard[index] = this.state.player
-        this.setState({
-          board: newBoard,
-          player: this.state.player === "X" ? "O" : "X"
-        })
-        this.checkWinner()
-      }
-    }
+  NormalDifficulty(player) {
+   
   }
 
-  HardDifficulty(index) {
-
+  HardDifficulty(player) {
+  
   }
 
   handleClick(index) {
@@ -85,7 +76,7 @@ class App extends Component {
     this.setState({
       player: this.state.player === "X" ? "O" :"X"
     })
-    console.log(this.state.twoplayerdif)
+  
     if(this.state.twoplayerdif) {
       this.TwoPlayer(index);
     }
@@ -111,15 +102,12 @@ class App extends Component {
     this.setState({
       player: this.state.player === "X" ? "O" :"X",
       winner: null,
-      board: Array(9).fill(null)
+      board: Array(9).fill(null),
+      totalMoves: 0,
     })
   }
 
   render() {
-    
-    if(this.state.showMenuScreen ) {
-      return <MenuScreen />
-    }
 
     if(this.state.showWinScreen) {
       return <WinScreen />
