@@ -52,18 +52,16 @@ class MenuScreen extends Component {
            
         return( 
  
-            <React.Fragment> 
-            <h1>Menu Screen</h1> 
-            <button onClick={this.twoPlayerClick}> 
-            Two Player 
-            </button> 
-            <button onClick={this.NormalClick}> 
-            Normal Difficulty 
-            </button> 
-            <button onClick={this.HardClick}> 
-            Hard Difficulty 
-            </button> 
-            </React.Fragment> 
+            <div className="MenuContainer">
+
+                <h1>Tic Tac Toe</h1>
+
+                <div className="buttons">
+                    <div className="button" onClick={() => this.twoPlayerClick()}>2 Player</div>
+                    <div className="button" onClick={() => this.NormalClick()}>Normal Difficulty</div>
+                    <div className="button" onClick={() => this.HardClick()}>Hard Difficulty</div>
+                </div>
+            </div>
         ) 
     } 
 } 

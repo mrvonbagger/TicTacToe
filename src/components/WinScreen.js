@@ -37,15 +37,14 @@ class WinScreen extends Component {
         } 
            
         return( 
-            <React.Fragment> 
-            <h1>WinScreen</h1> 
-            <button onClick={this.rematchClick}> 
-            Rematch 
-            </button> 
-            <button onClick={this.menuClick}> 
-            Menu 
-            </button> 
-            </React.Fragment> 
+            <div className="MenuContainer">
+                <h1>WinScreen</h1> 
+
+                <div className="buttons">
+                        <div className="button" onClick={() => this.rematchClick()}>Rematch</div>
+                        <div className="button" onClick={() => this.menuClick()}>Menu</div>
+                </div>
+            </div> 
         ) 
     } 
 } 
