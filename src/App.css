@@ -58,6 +58,7 @@
   display: inline-flex;
   width: 400px;
   color: #eee;
+  justify-content: center;
 }
 
 .button{
