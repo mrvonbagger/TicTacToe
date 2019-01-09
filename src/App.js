@@ -11,6 +11,7 @@ class App extends Component {
       winner: null,
       totalMoves: 0,
       twoplayerdif: true,
+      difficulty: this.props.difficulty,
       
     }
   }
@@ -32,6 +33,12 @@ class App extends Component {
   }
 
   checkMatch(winLines) {
+    if(this.state.totalMoves === 9) {
+      this.setState({
+        winner: "Draw",
+        showWinScreen: true,
+      })
+    }
     for (let index = 0; index < winLines.length; index++) {
       const [a, b, c] = winLines[index];
       let board = this.state.board
@@ -40,10 +47,6 @@ class App extends Component {
           winner: this.state.player,
           showWinScreen: true
         })
-        this.reset()
-      }
-      if(this.state.totalMoves === 9) {
-        this.reset();
       }
     }
   }
@@ -56,15 +59,40 @@ class App extends Component {
         this.state.totalMoves++;
         this.setState({
           board: newBoard,
-          player: this.state.player === "X" ? "O" : "X"
+          player: this.state.player === "X" ? "O" : "X",
         })
         this.checkWinner()
       }
     }
   }
 
-  NormalDifficulty(player) {
+  getPossibleMoves(){
+    
+    let possibleMoves = []
    
+    for(var i=0;i<=8;i++) {
+      if(this.state.board[i] === null) {
+        possibleMoves.push(i)
+      }
+    }
+    
+    return possibleMoves;
+  }
+
+  NormalDifficulty(index) {
+    if (this.state.player && !this.state.winner) {
+      let newBoard = this.state.board
+      if (this.state.board[index] === null) {
+        newBoard[index] = this.state.player
+        this.state.totalMoves++;
+        this.setState({
+          board: newBoard,
+          player: this.state.player === "X" ? "O" : "X",
+        })
+        let possibleMoves = this.getPossibleMoves()
+        this.checkWinner()
+      }
+    }
   }
 
   HardDifficulty(player) {
@@ -72,15 +100,12 @@ class App extends Component {
   }
 
   handleClick(index) {
- 
-    this.setState({
-      player: this.state.player === "X" ? "O" :"X"
-    })
   
-    if(this.state.twoplayerdif) {
+    console.log(this.state.difficulty)
+    if(this.state.difficulty === "twoPlayer") {
       this.TwoPlayer(index);
     }
-    if(this.state.normalDif) {
+    if(this.state.difficulty === "normal") {
       this.NormalDifficulty(index);
     }
     if(this.state.hardDif) {
@@ -97,20 +122,13 @@ class App extends Component {
           {box} </div>
     )
   }
-  
-  reset() {
-    this.setState({
-      player: this.state.player === "X" ? "O" :"X",
-      winner: null,
-      board: Array(9).fill(null),
-      totalMoves: 0,
-    })
-  }
 
   render() {
 
     if(this.state.showWinScreen) {
-      return <WinScreen />
+      return <WinScreen 
+      winner={this.state.winner}
+      difficulty={this.state.difficulty}/>
     }
 
     return (
