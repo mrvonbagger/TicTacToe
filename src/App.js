@@ -32,12 +32,14 @@ class App extends Component {
   }
 
   checkMatch(winLines) {
-    if(this.state.totalMoves === 9) {
+    
+    if(!this.state.board.includes(null)) {
       this.setState({
         winner: "Draw",
         showWinScreen: true,
       })
     }
+
     for (let index = 0; index < winLines.length; index++) {
       const [a, b, c] = winLines[index];
       let board = this.state.board
@@ -56,7 +58,6 @@ class App extends Component {
       console.log(newBoard)
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
-        this.state.totalMoves++;
         this.setState({
           board: newBoard,
           player: this.state.player === "X" ? "O" : "X",
@@ -86,18 +87,16 @@ class App extends Component {
     
     if (this.state.player && !this.state.winner) {
       let newBoard = this.state.board
-      let possibleMoves = this.getPossibleMoves()
-      console.log(possibleMoves)
-      const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
-        this.state.totalMoves++;
-        newBoard[randomMove] = "O";
-        this.state.totalMoves++;
         this.setState({
           board: newBoard,
           player: "X",
         })
+
+        let possibleMoves = this.getPossibleMoves()
+        const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+        newBoard[randomMove] = "O";
         
         console.log(this.state.board)
 
