@@ -13,12 +13,21 @@ class WinScreen extends Component {
           showMenuScreen: false, 
         } 
     } 
+
+    renderBoxes() {
+        return this.props.board.map(
+            (box, index) =>
+            <div className="box" key={index}>
+            {box} </div>
+            )
+    }
  
     rematchClick = () => { 
         this.setState({ 
             Rematch: true 
         }) 
     } 
+
     menuClick = () => { 
         this.setState({ 
             showMenuScreen: true, 
@@ -26,10 +35,10 @@ class WinScreen extends Component {
     } 
  
     render(){ 
-         
  
         if(this.state.Rematch) { 
-            return <App /> 
+            return <App 
+            difficulty={this.props.difficulty} /> 
           } 
  
         if(this.state.showMenuScreen) { 
@@ -38,13 +47,19 @@ class WinScreen extends Component {
            
         return( 
             <div className="MenuContainer">
-                <h1>WinScreen</h1> 
+                <div className="BoardContainer">
+                    <h1>Winner: {this.props.winner}</h1> 
 
+                    <div className="board">
+                        {this.renderBoxes()}
+                    </div> 
+                </div> 
+                
                 <div className="buttons">
-                        <div className="button" onClick={() => this.rematchClick()}>Rematch</div>
-                        <div className="button" onClick={() => this.menuClick()}>Menu</div>
+                    <div className="button" onClick={() => this.rematchClick()}>Rematch</div>
+                    <div className="button" onClick={() => this.menuClick()}>Menu</div>
                 </div>
-            </div> 
+            </div>
         ) 
     } 
 } 

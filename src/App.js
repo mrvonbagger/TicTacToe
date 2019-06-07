@@ -12,7 +12,6 @@ class App extends Component {
       totalMoves: 0,
       currentPlayer: null,
       difficulty: this.props.difficulty,
-      
     }
   }
 
@@ -52,9 +51,9 @@ class App extends Component {
   }
 
   TwoPlayer(index) {
-    
     if (this.state.player && !this.state.winner) {
       let newBoard = this.state.board
+      console.log(newBoard)
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
         this.state.totalMoves++;
@@ -83,15 +82,17 @@ class App extends Component {
   //newBoard[Math.floor(Math.random() * possibleMoves.length)] = this.state.player;
   NormalDifficulty(index) {
     
-    this.setState({currentPlayer: "Oinas"})
+    this.setState({currentPlayer: "Ilves"})
     
     if (this.state.player && !this.state.winner) {
       let newBoard = this.state.board
       let possibleMoves = this.getPossibleMoves()
+      console.log(possibleMoves)
+      const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
         this.state.totalMoves++;
-        newBoard[Math.floor(Math.random() * possibleMoves.length)] = "O";
+        newBoard[randomMove] = "O";
         this.state.totalMoves++;
         this.setState({
           board: newBoard,
@@ -110,9 +111,7 @@ class App extends Component {
   }
 
   handleClick(index) {
-    
-   
-    if(this.state.difficulty === "twoPlayer") {
+    if(this.state.difficulty === 'twoPlayer') {
       this.TwoPlayer(index);
     }
     if(this.state.difficulty === "normal") {
@@ -124,23 +123,21 @@ class App extends Component {
   }
 
   renderBoxes() {
-    
-  
     return this.state.board.map(
       (box, index) =>
         <div className="box" key={index}
           onClick={() => this.handleClick(index)}>
           {box} </div>
-    )
+          )
   }
 
   render() {
-    console.log(this.state.currentPlayer)
 
     if(this.state.showWinScreen) {
       return <WinScreen 
-      winner={this.state.winner}
-      difficulty={this.state.difficulty}/>
+        winner={this.state.winner}
+        difficulty={this.state.difficulty}
+        board={this.state.board}/>
     }
 
     return (

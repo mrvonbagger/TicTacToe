@@ -17,25 +17,19 @@ class MenuScreen extends Component {
  
     twoPlayerClick = () => { 
         this.setState({ 
-            twoplayerdif: true, 
-            normalDif: false, 
-            hardDif: false, 
+            difficulty: 'twoPlayer',
             showMenuScreen: false, 
         }) 
     } 
     NormalClick = () => { 
         this.setState({ 
-            twoplayerdif: false, 
-            normalDif: true, 
-            hardDif: false, 
+            difficulty: 'normal',
             showMenuScreen: false, 
         }) 
     } 
     HardClick = () => { 
         this.setState({ 
-            twoplayerdif: false, 
-            normalDif: false, 
-            hardDif: true, 
+            difficulty: 'hard', 
             showMenuScreen: false, 
         }) 
     } 
@@ -44,9 +38,7 @@ class MenuScreen extends Component {
         if(!this.state.showMenuScreen) { 
             return <App  
             showMenuScreen={this.state.showMenuScreen} 
-            twoplayerdif={this.state.twoplayerdif} 
-            normalDif={this.state.normalDif} 
-            hardDif={this.state.hardDif} 
+            difficulty={this.state.difficulty} 
             /> 
           } 
            
