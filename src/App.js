@@ -16,7 +16,6 @@ class App extends Component {
   }
 
   checkWinner() {
- 
     let winLines =
       [
         ["0", "1", '2'],
@@ -32,7 +31,7 @@ class App extends Component {
   }
 
   checkMatch(winLines) {
-    
+    //Draw if board does not have null
     if(!this.state.board.includes(null)) {
       this.setState({
         winner: "Draw",
@@ -41,9 +40,11 @@ class App extends Component {
     }
 
     for (let index = 0; index < winLines.length; index++) {
+
       const [a, b, c] = winLines[index];
       let board = this.state.board
-      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) { //Game won Player 1 or 2 is equal to winLines
         this.setState({
           winner: board[a],
           showWinScreen: true
@@ -53,13 +54,14 @@ class App extends Component {
   }
 
   TwoPlayer(index) {
-    if (this.state.player && !this.state.winner) {
-      let newBoard = this.state.board
-      console.log(newBoard)
-      if (this.state.board[index] === null) {
+    if (!this.state.winner) {  //Can only play if winner is undetermined
+
+      let newBoard = this.state.board //newBoard is a temporary playing field
+
+      if (this.state.board[index] === null) { //Can only place in empty boxes
         newBoard[index] = this.state.player
         this.setState({
-          board: newBoard,
+          board: newBoard, 
           player: this.state.player === "X" ? "O" : "X",
         })
         
@@ -69,24 +71,45 @@ class App extends Component {
   }
 
   getPossibleMoves(){
-    
     let possibleMoves = []
    
     for(var i=0;i<=8;i++) {
-      if(this.state.board[i] === null) {
+
+      if(this.state.board[i] === null) {  //Get positions equal to null
         possibleMoves.push(i)
       }
     }
     return possibleMoves;
   }
 
-  //newBoard[Math.floor(Math.random() * possibleMoves.length)] = this.state.player;
   NormalDifficulty(index) {
-    
-    this.setState({currentPlayer: "Ilves"})
-    
-    if (this.state.player && !this.state.winner) {
+    if (!this.state.winner) {
+
       let newBoard = this.state.board
+
+      if (this.state.board[index] === null) {
+        newBoard[index] = this.state.player
+        this.setState({
+          board: newBoard,
+          player: "X",
+        })
+
+        //Computer chooses moves randomly
+        let possibleMoves = this.getPossibleMoves()
+        const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+        newBoard[randomMove] = "O";
+
+        this.checkWinner()
+      }
+    }
+  }
+
+  //Unfinished
+  HardDifficulty(index) {
+    if (!this.state.winner) {
+
+      let newBoard = this.state.board
+
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player
         this.setState({
@@ -96,31 +119,29 @@ class App extends Component {
 
         let possibleMoves = this.getPossibleMoves()
         const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+       
         newBoard[randomMove] = "O";
-        
-        console.log(this.state.board)
 
         this.checkWinner()
       }
     }
   }
 
-  HardDifficulty(player) {
-  
-  }
-
   handleClick(index) {
     if(this.state.difficulty === 'twoPlayer') {
       this.TwoPlayer(index);
     }
+
     if(this.state.difficulty === "normal") {
       this.NormalDifficulty(index);
     }
+
     if(this.state.difficulty === "hard") {
       this.HardDifficulty(index);
     }
   }
 
+  //Builds the board and gives boxes an index
   renderBoxes() {
     return this.state.board.map(
       (box, index) =>
@@ -131,11 +152,11 @@ class App extends Component {
   }
 
   render() {
-
+    //Passing props to winScreen if game is over
     if(this.state.showWinScreen) {
       return <WinScreen 
         winner={this.state.winner}
-        difficulty={this.state.difficulty}
+        difficulty={this.state.difficulty} //Passed so if player chooses rematch the difficulty stays the same
         board={this.state.board}/>
     }
 

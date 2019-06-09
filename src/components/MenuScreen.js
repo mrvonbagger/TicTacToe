@@ -36,9 +36,10 @@ class MenuScreen extends Component {
  
     render(){ 
         if(!this.state.showMenuScreen) { 
+            //Passing difficulty as a prop
             return <App  
             showMenuScreen={this.state.showMenuScreen} 
-            difficulty={this.state.difficulty} 
+            difficulty={this.state.difficulty}
             /> 
           } 
            

@@ -14,6 +14,7 @@ class WinScreen extends Component {
         } 
     } 
 
+    //Builds board for winScreen
     renderBoxes() {
         return this.props.board.map(
             (box, index) =>
