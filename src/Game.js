@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   checkMatch(winLines) {
+    
     //Draw if board does not have null
     if(!this.state.board.includes(null)) {
       this.setState({
@@ -49,6 +50,7 @@ class App extends Component {
           winner: board[a],
           showWinScreen: true
         })
+        break;
       }
     }
   }
@@ -94,6 +96,8 @@ class App extends Component {
           player: "X",
         })
 
+        this.checkWinner()
+
         //Computer chooses moves randomly
         let possibleMoves = this.getPossibleMoves()
         const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
@@ -118,9 +122,9 @@ class App extends Component {
         })
 
         let possibleMoves = this.getPossibleMoves()
-        const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+        const bestMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
        
-        newBoard[randomMove] = "O";
+        newBoard[bestMove] = "O";
 
         this.checkWinner()
       }

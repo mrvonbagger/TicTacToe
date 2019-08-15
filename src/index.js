@@ -4,6 +4,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import MenuScreen from './components/MenuScreen';
 
+
 ReactDOM.render(<MenuScreen />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

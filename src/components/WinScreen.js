@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import '../App.css'; 
-import App from '../App'; 
+import App from '../Game'; 
 import MenuScreen from './MenuScreen' 
  
  
@@ -56,7 +56,7 @@ class WinScreen extends Component {
                     </div> 
                 </div> 
                 
-                <div className="buttons">
+                <div className="MenuButtons">
                     <div className="button" onClick={() => this.rematchClick()}>Rematch</div>
                     <div className="button" onClick={() => this.menuClick()}>Menu</div>
                 </div>

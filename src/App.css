@@ -1,5 +1,6 @@
 * {
   background: black;
+  font-family: "8BIt", sans-serif;
 }
 
 .container{
@@ -11,6 +12,26 @@
 .MenuContainer{
   text-align: center;
   align-content: center;
+  color: #eee;
+}
+
+.MenuBoard {
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 305px;
+}
+
+.MenuBox {
+  width: 100px;
+  height: 100px;
+  border: 1px solid white;
+  display:  flex;
+  line-height: 80px;
+  font-size: 45px;
+}
+
+.MenuBoardWrapper {
+  text-align: center;
   color: #eee;
 }
 
@@ -27,11 +48,11 @@
   user-select: none;
 }
 
-.box:hover {
+.box:hover{
   background: gray;
 }
 
-.box:nth-child(7), .box:nth-child(8), .box:nth-child(9) {
+/* .box:nth-child(7), .box:nth-child(8), .box:nth-child(9) {
   border-bottom: 0;
 }
 
@@ -45,7 +66,7 @@
 
 .box:nth-child(3n) {
   border-right: 0;
-}
+} */
 
 .board{
   display: inline-flex;
@@ -54,11 +75,17 @@
   color: #eee;
 }
 
-.buttons{
+.MenuButtons{
   display: inline-flex;
   width: 400px;
   color: #eee;
   justify-content: center;
+  padding-top: 20px;
+  transition: ease-in 1s;
+}
+
+.MenuButtonsWrapper {
+  text-align: center;
 }
 
 .button{
@@ -69,8 +96,15 @@
   line-height: 50px;
   justify-content: center;
   cursor: pointer;
+  transition: ease-in-out 100ms;
 }
 
 .button:hover{
   background: gray;
 }
+
+.MenuButtons:focus {
+  transform: rotate(45deg);
+}
+
+
